@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amazonaws.services.rekognition.model.CompareFacesMatch;
 import com.amazonaws.services.rekognition.model.FaceDetail;
 import com.amazonaws.services.rekognition.model.Label;
 
@@ -19,6 +20,8 @@ public class UploadActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private ImageView imgPreview;
     private TextView resultTextView;
+    private TextView resultTextView2;
+    private String refImagePath = "/storage/emulated/0/ProjectExpImageGallery/sid.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class UploadActivity extends AppCompatActivity {
 
         imgPreview = (ImageView) findViewById(R.id.imgPreview);
         resultTextView = (TextView) findViewById(R.id.chargesText);
+        resultTextView2 = (TextView) findViewById(R.id.chargesText2);
 
         // init aws
         AwsUtil.init(getApplicationContext());
@@ -41,7 +45,9 @@ public class UploadActivity extends AppCompatActivity {
             // Displaying the image or video on the screen
             imgPreview.setVisibility(View.VISIBLE);
             Util.setImage(filePath, imgPreview);
+            new CompareFaces().execute(filePath);
             new detectLabels().execute(filePath);
+
         } else {
             Toast.makeText(getApplicationContext(),
                     "Sorry, file path is missing!", Toast.LENGTH_LONG).show();
@@ -64,16 +70,31 @@ public class UploadActivity extends AppCompatActivity {
         }
     }
 
-    public class detectFaces extends AsyncTask<String, Void, List<FaceDetail>> {
+
+//    public class detectFaces extends AsyncTask<String, Void, List<FaceDetail>> {
+//
+//        @Override
+//        protected List<FaceDetail> doInBackground(String... strings) {
+//            return AwsUtil.getFaces(strings[0]);
+//        }
+//
+//        @Override
+//        protected void onPostExecute(List<FaceDetail> result2) {
+//            Util.setTextViewFaces(result2, resultTextView2);
+//        }
+//
+//    }
+
+    public class CompareFaces extends AsyncTask<String, Void, List<CompareFacesMatch>> {
 
         @Override
-        protected List<FaceDetail> doInBackground(String... strings) {
-            return AwsUtil.getFaces(strings[0]);
+        protected List<CompareFacesMatch> doInBackground(String... strings) {
+            return AwsUtil.compareFace(refImagePath,strings[0]);
         }
 
         @Override
-        protected void onPostExecute(List<FaceDetail> result) {
-            Util.setTextViewFaces(result, resultTextView);
+        protected void onPostExecute(List<CompareFacesMatch> result2) {
+            Util.setTextViewFacesCompare(result2, resultTextView2);
         }
 
     }

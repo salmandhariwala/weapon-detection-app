@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amazonaws.services.rekognition.model.CompareFacesMatch;
 import com.amazonaws.services.rekognition.model.FaceDetail;
 import com.amazonaws.services.rekognition.model.Label;
 import com.google.gson.Gson;
@@ -27,10 +28,23 @@ public class Util {
 
     public static String setTextViewLabels(List<Label> result, TextView resultTextView) {
         StringBuilder sb = new StringBuilder();
+
+        boolean isGunFound = false;
+
         for (int i = 0; i < result.size(); i++) {
-            sb.append(i + ") " + result.get(i).toString());
-            sb.append("\n");
+            Label label = result.get(i);
+            if(label.getName().equalsIgnoreCase("gun")){
+                isGunFound = true;
+            }
         }
+
+        if(isGunFound){
+            sb.append("Gun Found!");
+        }else{
+            sb.append("Gun Not Found!");
+        }
+
+
         if (resultTextView != null) {
             resultTextView.setText(sb.toString());
         }
@@ -45,10 +59,43 @@ public class Util {
 
         for (int i = 0; i < faceDetails.size(); i++) {
             FaceDetail face = faceDetails.get(i);
-            sb.append(new Gson().toJson(face.getEmotions()));
+            sb.append(new Gson().toJson(face));
             sb.append("******* \n");
 
         }
+
+        if (resultTextView != null) {
+            resultTextView.setText(sb.toString());
+        }
+
+        return sb.toString();
+
+    }
+
+
+    public static String setTextViewFacesCompare(List<CompareFacesMatch> faceDetails, TextView resultTextView) {
+
+        StringBuilder sb = new StringBuilder();
+
+        if(faceDetails==null){
+            sb.append("No Faces Found");
+        }else{
+
+            Log.w("face_compare",new Gson().toJson(faceDetails));
+
+
+
+            if(!faceDetails.isEmpty()) {
+                sb.append("Terrorist Found ");
+            }else{
+                sb.append("Terrorist NOT Found ");
+            }
+
+        }
+
+
+
+
 
         if (resultTextView != null) {
             resultTextView.setText(sb.toString());
