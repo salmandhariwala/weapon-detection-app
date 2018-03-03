@@ -23,7 +23,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 
 /**
- * Created by salmandhariwala on 01/03/18.
+ * Created by shahiddhariwala on 01/03/18.
  */
 
 public class AwsUtil {

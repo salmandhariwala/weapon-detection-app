@@ -148,7 +148,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_aboutme) {
+            final Intent abtme = new Intent(this,AboutmeActivity.class);
+            startActivity(abtme);
 
         }
 

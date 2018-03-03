@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import java.util.List;
 
 /**
- * Created by salmandhariwala on 02/03/18.
+ * Created by shahiddhariwala on 02/03/18.
  */
 
 public class Util {
@@ -33,15 +33,15 @@ public class Util {
 
         for (int i = 0; i < result.size(); i++) {
             Label label = result.get(i);
-            if(label.getName().equalsIgnoreCase("gun")){
+            if(label.getName().equalsIgnoreCase("gun") || label.getName().equalsIgnoreCase("weapon")){
                 isGunFound = true;
             }
         }
 
         if(isGunFound){
-            sb.append("Gun Found!");
+            sb.append("Weapon Found!");
         }else{
-            sb.append("Gun Not Found!");
+            sb.append("Weapon Not Found!");
         }
 
 
@@ -78,13 +78,10 @@ public class Util {
         StringBuilder sb = new StringBuilder();
 
         if(faceDetails==null){
-            sb.append("No Faces Found");
+            sb.append("Faces Not Found");
         }else{
 
             Log.w("face_compare",new Gson().toJson(faceDetails));
-
-
-
             if(!faceDetails.isEmpty()) {
                 sb.append("Terrorist Found ");
             }else{
