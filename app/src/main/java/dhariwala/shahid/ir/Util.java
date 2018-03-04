@@ -51,26 +51,26 @@ public class Util {
         return sb.toString();
     }
 
-    public static String setTextViewFaces(List<FaceDetail> faceDetails, TextView resultTextView) {
-
-        StringBuilder sb = new StringBuilder();
-
-        Log.w("face",new Gson().toJson(faceDetails));
-
-        for (int i = 0; i < faceDetails.size(); i++) {
-            FaceDetail face = faceDetails.get(i);
-            sb.append(new Gson().toJson(face));
-            sb.append("******* \n");
-
-        }
-
-        if (resultTextView != null) {
-            resultTextView.setText(sb.toString());
-        }
-
-        return sb.toString();
-
-    }
+//    public static String setTextViewFaces(List<FaceDetail> faceDetails, TextView resultTextView) {
+//
+//        StringBuilder sb = new StringBuilder();
+//
+//        Log.w("face",new Gson().toJson(faceDetails));
+//
+//        for (int i = 0; i < faceDetails.size(); i++) {
+//            FaceDetail face = faceDetails.get(i);
+//            sb.append(new Gson().toJson(face));
+//            sb.append("******* \n");
+//
+//        }
+//
+//        if (resultTextView != null) {
+//            resultTextView.setText(sb.toString());
+//        }
+//
+//        return sb.toString();
+//
+//    }
 
 
     public static String setTextViewFacesCompare(List<CompareFacesMatch> faceDetails, TextView resultTextView) {

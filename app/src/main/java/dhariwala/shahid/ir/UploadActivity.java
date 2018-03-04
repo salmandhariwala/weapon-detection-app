@@ -46,7 +46,7 @@ public class UploadActivity extends AppCompatActivity {
             imgPreview.setVisibility(View.VISIBLE);
             Util.setImage(filePath, imgPreview);
             new CompareFaces().execute(filePath);
-            new detectLabels().execute(filePath);
+           new detectLabels().execute(filePath);
 
         } else {
             Toast.makeText(getApplicationContext(),
