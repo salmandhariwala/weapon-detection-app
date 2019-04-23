@@ -148,7 +148,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_aboutme) {
+            final Intent abtme = new Intent(this,AboutmeActivity.class);
+            startActivity(abtme);
 
         }
 
@@ -165,6 +167,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public Uri getOutputMediaFileUri(int type) {
+
         return Uri.fromFile(getOutputMediaFile(type));
     }
 
@@ -198,7 +201,7 @@ public class MainActivity extends AppCompatActivity
     private static File getOutputMediaFile(int type) {
 
 
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory() + "/ir/");
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory() + "/ProjectExpImageGallery/");
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {

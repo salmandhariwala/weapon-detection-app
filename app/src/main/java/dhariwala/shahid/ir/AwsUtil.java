@@ -8,8 +8,8 @@ import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.rekognition.AmazonRekognition;
 import com.amazonaws.services.rekognition.AmazonRekognitionClient;
+import com.amazonaws.services.rekognition.model.CompareFacesMatch;
 import com.amazonaws.services.rekognition.model.CompareFacesRequest;
-import com.amazonaws.services.rekognition.model.CompareFacesResult;
 import com.amazonaws.services.rekognition.model.DetectFacesRequest;
 import com.amazonaws.services.rekognition.model.DetectFacesResult;
 import com.amazonaws.services.rekognition.model.DetectLabelsRequest;
@@ -23,7 +23,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 
 /**
- * Created by salmandhariwala on 01/03/18.
+ * Created by shahiddhariwala on 01/03/18.
  */
 
 public class AwsUtil {
@@ -83,6 +83,21 @@ public class AwsUtil {
         DetectFacesResult response = getAWSRekognition().detectFaces(request);
         List<FaceDetail> faceDetails = response.getFaceDetails();
         return faceDetails;
+    }
+
+    public static List<CompareFacesMatch> compareFace(String face1, String face2){
+
+        try{
+            Image image_ref = getImageFromPath(face1);
+            Image image_to_check = getImageFromPath(face2);
+
+            List<CompareFacesMatch> matches = getAWSRekognition().compareFaces(new CompareFacesRequest(image_ref, image_to_check)).getFaceMatches();
+
+            return matches;
+        }catch (Exception e){
+            return null;
+        }
+
     }
 
 
